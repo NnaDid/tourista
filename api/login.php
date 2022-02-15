@@ -31,6 +31,7 @@ class Login extends DB{
                     if(password_verify($pass,$row['paswd'])){
                         $user 	  = $_SESSION["__USER_EMAIL"]	    = $row['email'];
                         $uid      = $_SESSION["__USER_ID"]          = $row['id']; 
+                        $name     = $_SESSION["__USER_NAME"]        = $row['name']; 
     
                     if(isset($user) && isset($uid) ){
                         $this->result['msg'] = "success";  

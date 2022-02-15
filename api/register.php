@@ -1,7 +1,6 @@
 <?php 
 session_start();
-require_once('db.php');
-
+require_once('db.php'); 
 
 class Register extends DB{
          
@@ -26,7 +25,8 @@ class Register extends DB{
                     $sql      = "INSERT INTO `users`(`name`,`email`,`paswd`,`level`,`createdAt`) VALUES('$FullName','$email','$hassPass','user',NOW())";
                     $statment = $con->query($sql); 
                     if($statment){
-                        $user 	      = $_SESSION["___USER_EMAIL"]	= $email;  
+                        $user 	      = $_SESSION["__USER_EMAIL"]	= $email;  
+                        $name 	      = $_SESSION["___USER_NAME"]	= $FullName;  
                         $msg 	 ='<!DOCTYPE html><html>
                                     <body style="background:#f4f3ef;">
                                     <div id="wrapper" class="wrapper-content"> 

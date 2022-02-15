@@ -1,5 +1,27 @@
+<?php
+session_start();
+$user = $_SESSION["__USER_EMAIL"];
+$name = $_SESSION["__USER_NAME"];
+
+function checkLoggedIn($loc){
+  if(!isset($_SESSION["__USER_EMAIL"])){
+      header("location:$loc");
+  }
+  
+  if(isset($_SESSION["__USER_EMAIL"])){
+    if(isset($_GET['u']) && $_GET['u']=="logout"){ 
+      unset($_SESSION["__USER_EMAIL"]);
+      session_destroy(); 
+      header("location:$loc");
+    }
+  }
+}
+
+checkLoggedIn("../index.html");
+
+?>
+
 <!DOCTYPE html>
-<!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
@@ -84,14 +106,14 @@
             <div class="job">Web Designer</div>
           </div>
         </div>
-        <i class='bx bx-log-out' id="log_out" ></i>
+        <a href="index.php?u=logout"> <i class='bx bx-log-out' id="log_out" ></i></a>
       </div>
     </div>
   </div>
 
   <div class="home_content" style="overflow-y:scroll;">
       <div class="text header_div">
-        <h4></h4>
+        <h4><?php echo $user; ?></h4>
         <h4><i class='bx bx-log-out' id="log_out" ></i></h4>
       </div>
 
@@ -114,10 +136,10 @@
   <script>
    let btn       = document.querySelector("#btn");
    let sidebar   = document.querySelector(".sidebar");
-   let searchBtn = document.querySelector(".bx-search");
+  //  let searchBtn = document.querySelector(".bx-search");
 
    btn.onclick = function() { sidebar.classList.toggle("active");}
-   searchBtn.onclick = function() {sidebar.classList.toggle("active");}
+  //  searchBtn.onclick = function() {sidebar.classList.toggle("active");}
 
   </script>
 

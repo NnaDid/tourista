@@ -2041,31 +2041,28 @@ p {
         <div class="col-xl-8 order-xl-1">
           <div class="card bg-secondary shadow">
             <div class="card-body">
-              <form>
+              <form id="updateForm"> 
                 <h6 class="heading-small text-muted mb-4">User information</h6>
                 <div class="pl-lg-4">
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-username">Name</label>
-                        <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Name" value="lucky.jesse">
+                        <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Name" value="<?php echo $name; ?>">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">Email address</label>
-                        <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com">
+                        <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com" value="<?php echo $user; ?>">
                       </div>
                     </div>
-
+                        <div id="result"></div>
                     <div class="col-lg-6">
                       <div class="form-group">
                            <input type="submit" class="mx-4 btn btn-primary"> 
                       </div>
-                    </div>
-
-                    
-
+                    </div> 
                   </div> 
 
                 </div>
@@ -2076,76 +2073,34 @@ p {
         </div>
       </div>
 
-    <!-- Page content -->
+      <!-- Page content -->
     <div class="row"> 
         <div class="col-xl-8 order-xl-1">
           <div class="card bg-secondary shadow">
             <div class="card-body">
-              <form>
-                <h6 class="heading-small text-muted mb-4">User information</h6>
-                <div class="pl-lg-4">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-group focused">
-                        <label class="form-control-label" for="input-username">Name</label>
-                        <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Name" value="lucky.jesse">
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-email">Email address</label>
-                        <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com">
-                      </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                           <input type="submit" class="mx-4 btn btn-primary"> 
-                      </div>
-                    </div>
-
-                    
-
-                  </div> 
-
-                </div>
-                <hr class="my-4"> 
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      
-    <!-- Page content -->
-    <div class="row"> 
-        <div class="col-xl-8 order-xl-1">
-          <div class="card bg-secondary shadow">
-            <div class="card-body">
-              <form>
+              <form id="updatePasswordForm">
                 <h6 class="heading-small text-muted mb-4">Change Password</h6>
                 <div class="pl-lg-4">
                   <div class="row">
                     <div class="col-lg-4">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-username">Old Password</label>
-                        <input type="text" id="input-username" class="form-control form-control-alternative" name="old_password" placeholder="Old Password">
+                        <label class="form-control-label" for="input-old">Old Password</label>
+                        <input type="password" id="input-old" class="form-control form-control-alternative" name="old_password" placeholder="Old Password">
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-password">New Password</label>
-                        <input type="text" id="input-password" class="form-control form-control-alternative" name="new_password" placeholder="new password" />
+                        <input type="password" id="input-password" class="form-control form-control-alternative" name="new_password" placeholder="new password" />
                       </div>
-                    </div>
+                    </div>  
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label" for="input-confirm_newPassword">Confirm New Password</label>
-                        <input type="email" id="input-confirm_newPassword" class="form-control form-control-alternative" name="confirm_newPassword" placeholder="confirm new password" />
+                        <input type="password" id="input-confirm_newPassword" class="form-control form-control-alternative" name="confirm_newPassword" placeholder="confirm new password" />
                       </div>
                     </div>
-                    
+                    <div id="__result"></div>
                     <div class="col-lg-4">
                       <div class="form-group">
                          <input type="submit" class="btn btn-primary"> 
@@ -2161,4 +2116,86 @@ p {
         </div>
       </div>
 
+      <script>
+    (function(){
+      let updateForm          = document.getElementById('updateForm'); 
+      let result              = document.getElementById('result');
+      
+
+      updateForm.addEventListener('submit', function(e){
+        e.preventDefault();
+        let name    = document.getElementById('input-username').value;
+        let email   = document.getElementById('input-email').value; 
+        result.innerHTML = '<i class="fa fa-spinner fa-spin" style="font-size:24px"></i> ';
+        let data = {
+                name: name,
+                email: email, 
+          }
+
+        fetch('../api/updateUser.php', {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {"Content-type": "application/json; charset=UTF-8"}
+        })
+        .then(response => response.json()) 
+        .then((json)=>{
+          console.log(json);
+          if(json.msg=='success'){
+            result.innerHTML = '<span style="color:green;">Successful!</span>';
+            setTimeout(()=>{
+              window.location.href = window.location.href;
+            }, 2000);
+          }else{
+            result.innerHTML = '<span style="color:red;">'+json.msg+'</span>';
+          }
+        })
+        .catch(err => console.log(err));
+      }); 
+
+
+
+
+
+    
+      let updatePasswordForm  = document.getElementById('updatePasswordForm');
+      let __result              = document.getElementById('__result');
+      
+
+      updatePasswordForm.addEventListener('submit', function(e){
+        e.preventDefault();    
+        let oldPaswd   = document.getElementById('input-old').value;
+        let newPaswd   = document.getElementById('input-password').value; 
+        let newpaswd2  = document.getElementById('input-confirm_newPassword').value; 
+        __result.innerHTML = '<i class="fa fa-spinner fa-spin" style="font-size:24px"></i> ';
+        let data = {
+          old_password: oldPaswd,
+          re_password:  newPaswd, 
+          new_password: newpaswd2, 
+          }
+          
+
+        fetch('../api/updatePassword.php', {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {"Content-type": "application/json; charset=UTF-8"}
+        })
+        .then(response => response.json()) 
+        .then((json)=>{
+          console.log(json);
+          if(json.msg=='success'){
+            __result.innerHTML = '<span style="color:green;">Successful!</span>';
+            setTimeout(()=>{
+              window.location.href = window.location.href;
+            }, 2000);
+          }else{
+            __result.innerHTML = '<span style="color:red;">'+json.msg+'</span>';
+          }
+        })
+        .catch(err => console.log(err));
+      }); 
+
+
+
+    })();
+  </script>
  

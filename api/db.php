@@ -31,5 +31,20 @@
             }
             }
         }
+
+        // Return User Details as Associative array
+        public function getUserByEmail($email){
+            $con        = $this->con();
+            $queryRow   = $con->query("SELECT * FROM `users` WHERE `email` ='$email'")->fetch_assoc();
+            return  $queryRow;
+        }
+
+        // Get User/member details by ID
+        public function getUserById($uid){
+            $con        = $this->con();
+            $queryRow   = $con->query("SELECT * FROM `users` WHERE `id` ='$uid'")->fetch_assoc();
+            return  $queryRow;
+        }
+        
    }
 ?>
