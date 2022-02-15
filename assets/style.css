@@ -224,14 +224,14 @@ body{
   background: #1d1b31;
 }
 .sidebar.active .profile #log_out{
-  left: 88%;
+  left: 80%;
 }
 .sidebar.active .profile #log_out{
   background: none
 }
 .home_content{
   position: absolute;
-  min-height: 40vh;
+  height: 80vh;
   width: calc(100% - 78px);
   left: 78px;
   background: #E4E9F7;

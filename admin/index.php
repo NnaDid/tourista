@@ -27,9 +27,9 @@
       <li>
         <a href="#">
           <i class='bx bx-user' ></i>
-          <span class="links_name">Users</span>
+          <span class="links_name"><a href ="index.php?pg=users.html">Users</a></span>
         </a>
-        <span class="tooltip">Users</span>
+        <span class="tooltip"><a href ="index.php?pg=users.html">Users</a></span>
       </li> 
     </ul>
     <div class="profile_content">

@@ -2106,6 +2106,7 @@ p {
                          <input type="submit" class="btn btn-primary"> 
                       </div>
                     </div>
+                    <p><a href="index.php?pg=upload">Upload Profile Pix</a></p>
                     
                   </div> 
   
