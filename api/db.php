@@ -45,6 +45,33 @@
             $queryRow   = $con->query("SELECT * FROM `users` WHERE `id` ='$uid'")->fetch_assoc();
             return  $queryRow;
         }
+
+
+        public function listUsers(){
+            $con    = $this->con();
+            $query  = $con->query("SELECT * FROM `users`");
+            $output = '<table border="1" style="width:100%; paddig:20px; border:1px solid #ccc;">
+                        <tr style="paddig:20px; border:1px solid #ccc;">
+                            <th style="paddig:20px; border:1px solid #ccc;">SN</th>
+                            <th style="paddig:20px; border:1px solid #ccc;">Name</th>
+                            <th style="paddig:20px; border:1px solid #ccc;">Email</th>
+                            <th style="paddig:20px; border:1px solid #ccc;">User Level</th> 
+                            <th style="paddig:20px; border:1px solid #ccc;">Action</th>
+                        </tr>';
+         $counter =0;
+          while($row = $query->fetch_assoc()){ 
+            $output.='<tr style="paddig:20px; border:1px solid #ccc;">
+                        <td style="paddig:20px; border:1px solid #ccc;">'.(++$counter).'</td>
+                        <td style="paddig:20px; border:1px solid #ccc;">'.$row['name'].'</td>
+                        <td style="paddig:20px; border:1px solid #ccc;">'.$row['email'].'</td>
+                        <td style="paddig:20px; border:1px solid #ccc;">'.$row['level'].'</td>
+                        <td style="paddig:20px; border:1px solid #ccc;"><a href="?uid='.$row['id'].'">Delete</a> <a href="?edit='.$row['id'].'">Edit</a> </td>
+                    </tr>';
+          }
+          $output.='</table>';
+          echo $output;
+
+        }
         
    }
 ?>

@@ -26,7 +26,7 @@ class Register extends DB{
                     $statment = $con->query($sql); 
                     if($statment){
                         $user 	      = $_SESSION["__USER_EMAIL"]	= $email;  
-                        $name 	      = $_SESSION["___USER_NAME"]	= $FullName;  
+                        $name 	      = $_SESSION["__USER_NAME"]	= $FullName;  
                         $msg 	 ='<!DOCTYPE html><html>
                                     <body style="background:#f4f3ef;">
                                     <div id="wrapper" class="wrapper-content"> 

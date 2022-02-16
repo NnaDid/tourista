@@ -34,7 +34,8 @@ class Login extends DB{
                         $name     = $_SESSION["__USER_NAME"]        = $row['name']; 
     
                     if(isset($user) && isset($uid) ){
-                        $this->result['msg'] = "success";  
+                        $this->result['msg']  = "success";  
+                        $this->result['user'] = $row;  
                     }else{
                         $this->result['msg'] = "Sorry No Session Was set at this time";
                     }

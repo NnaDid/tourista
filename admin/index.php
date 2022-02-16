@@ -1,3 +1,26 @@
+<?php
+session_start();
+$user = $_SESSION["__USER_EMAIL"];
+$name = $_SESSION["__USER_NAME"];
+
+function checkLoggedIn($loc){
+  if(!isset($_SESSION["__USER_EMAIL"])){
+      header("location:$loc");
+  }
+  
+  if(isset($_SESSION["__USER_EMAIL"])){
+    if(isset($_GET['u']) && $_GET['u']=="logout"){ 
+      unset($_SESSION["__USER_EMAIL"]);
+      session_destroy(); 
+      header("location:$loc");
+    }
+  }
+}
+
+checkLoggedIn("../index.html");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -18,16 +41,16 @@
     </div>
     <ul class="nav_list"> 
       <li>
-        <a href="#">
+        <a href="./">
           <i class='bx bx-grid-alt' ></i>
           <span class="links_name">Dashboard</span>
         </a>
         <span class="tooltip">Dashboard</span>
       </li>
       <li>
-        <a href="#">
+        <a href="index.php?pg=users.html">
           <i class='bx bx-user' ></i>
-          <span class="links_name"><a href ="index.php?pg=users.html">Users</a></span>
+          <!-- <span class="links_name"><a href ="index.php?pg=users.html">Users</a></span> -->
         </a>
         <span class="tooltip"><a href ="index.php?pg=users.html">Users</a></span>
       </li> 
@@ -41,7 +64,7 @@
             <div class="job">Web Designer</div>
           </div>
         </div>
-        <i class='bx bx-log-out' id="log_out" ></i>
+        <a href ="index.php?u=logout"><i class='bx bx-log-out' id="log_out" ></i></a>
       </div>
     </div>
   </div>
@@ -50,6 +73,22 @@
        <h4>Dashboard  Content</h4>
        <h4><i class='bx bx-log-out' id="log_out" ></i></h4>
     </div>
+
+    <?php
+        if(isset($_GET['pg'])){
+            $pg = trim($_GET['pg']); 
+            $pageUrl = $pg.".php";
+            if(file_exists($pageUrl)){
+                include($pageUrl);
+            }else{
+                include("./users.html.php");
+            }
+        }else{
+            include("./users.html.php");
+        }
+
+    ?> 
+
   </div>
 
   <script>
